@@ -31,7 +31,7 @@ BUILD_START=$(date +"%s")
 # Post to CI channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
-Version : "$KERVER"-NightQueen-$COMMIT
+Version : "$KERVER"-perf-$COMMIT
 Compiler Used : $GCC_VER $LLD_VER" -d chat_id=${chat_id} -d parse_mode=HTML
 
 args="	ARCH=arm64 \
