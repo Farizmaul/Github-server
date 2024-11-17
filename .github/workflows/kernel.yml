@@ -47,7 +47,7 @@ jobs:
 
       - name: Pull source
         run: |
-          git clone --depth=1 https://github.com/Farizmaul/Android_kernel_xiaomi_alioth.git -b $BRANCH kernel
+          git clone --depth=1 https://github.com/Farizmaul/After_rebase -b $BRANCH kernel
           git clone --depth=1 https://github.com/Farizmaul/AnyKernel3
 
       - name: Compiling source
