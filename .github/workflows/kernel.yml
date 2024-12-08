@@ -33,10 +33,10 @@ jobs:
       - name: Pull toolchain
         run: |
           if [ "${TOOLCHAIN}" = "gcc" ]; then
-            wget https://github.com/mvaisakh/gcc-build/releases/download/25082024/eva-gcc-arm-25082024.xz
-            wget https://github.com/mvaisakh/gcc-build/releases/download/25082024/eva-gcc-arm64-25082024.xz
-            tar -xf eva-gcc-arm64-25082024.xz
-            tar -xf eva-gcc-arm-25082024.xz
+            wget https://github.com/mvaisakh/gcc-build/releases/download/31102024/eva-gcc-arm-31102024.xz
+            wget https://github.com/mvaisakh/gcc-build/releases/download/31102024/eva-gcc-arm64-31102024.xz
+            tar -xf eva-gcc-arm64-31102024.xz
+            tar -xf eva-gcc-arm-31102024.xz
           fi
 
           if [ "${TOOLCHAIN}" = "clang" ]; then
