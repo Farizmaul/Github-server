@@ -1,7 +1,7 @@
 # Kernel compile workflow for personal usage
 # By Rico Ayuba (nickshade88@gmail.com)
 
-name: Kernel CI
+name: new repo
 
 on:
   workflow_dispatch:
