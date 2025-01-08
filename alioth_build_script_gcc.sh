@@ -8,7 +8,7 @@ TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 KERNEL_DEFCONFIG=vendor/alioth_user_defconfig
-FINAL_KERNEL_ZIP=NightQueen-Alioth-$TANGGAL.zip
+FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -31,7 +31,7 @@ BUILD_START=$(date +"%s")
 # Post to CI channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
-Version : "$KERVER"-perf-$COMMIT
+Version : "$KERVER"-Hyrax-$COMMIT
 Compiler Used : $GCC_VER $LLD_VER" -d chat_id=${chat_id} -d parse_mode=HTML
 
 args="	ARCH=arm64 \
@@ -50,7 +50,7 @@ args="	ARCH=arm64 \
 
 mkdir out
 make -j$(nproc --all) O=out $args $KERNEL_DEFCONFIG
-scripts/config --file out/.config -d CC_WERROR
+# scripts/config --file out/.config -d CC_WERROR
 cd out || exit
 make -j$(nproc --all) O=out $args olddefconfig
 cd ../ || exit
