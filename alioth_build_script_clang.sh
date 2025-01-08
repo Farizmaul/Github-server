@@ -8,9 +8,9 @@ ANYKERNEL3_DIR=$MAINPATH/AnyKernel3/
 TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-BUILD_DTBO=1
+BUILD_DTBO=0
 KERNEL_DEFCONFIG=vendor/alioth_user_defconfig
-FINAL_KERNEL_ZIP=NightQueen-Alioth-$TANGGAL.zip
+FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -41,7 +41,7 @@ echo "***********************************************"
 # Post to CI channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
-Version : "$KERVER"-perf-$COMMIT
+Version : "$KERVER"-Hyrax-$COMMIT
 Compiler Used : $KBUILD_COMPILER_STRING $LLD" -d chat_id=${chat_id} -d parse_mode=HTML
 
 args="ARCH=arm64 \
