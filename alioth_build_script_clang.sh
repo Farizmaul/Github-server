@@ -10,7 +10,7 @@ COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 BUILD_DTBO=0
 KERNEL_DEFCONFIG=vendor/alioth_user_defconfig
-FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
+FINAL_KERNEL_ZIP=Hyrax-Alioth-LTO-$TANGGAL.zip
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -59,8 +59,7 @@ CROSS_COMPILE_ARM32="$GCC32"arm-linux-androideabi-"
 
 mkdir out
 make O=out $args $KERNEL_DEFCONFIG
-#scripts/config --file out/.config \
-#        -e POLLY_CLANG
+scripts/config --file out/.config -e LTO_CLANG -d THINLTO
 cd out || exit
 make -j$(nproc --all) $args olddefconfig
 cd ../ || exit
