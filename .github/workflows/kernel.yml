@@ -36,7 +36,7 @@ jobs:
             wget https://github.com/mvaisakh/gcc-build/releases/download/02022025/eva-gcc-arm-02022025.xz
             wget https://github.com/mvaisakh/gcc-build/releases/download/02022025/eva-gcc-arm64-02022025.xz
             tar -xf eva-gcc-arm64-02022025.xz
-            tar -xf eva-gcc-arm-0222025.xz
+            tar -xf eva-gcc-arm-02022025.xz
           fi
 
           if [ "${TOOLCHAIN}" = "clang" ]; then
