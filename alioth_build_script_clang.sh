@@ -59,7 +59,7 @@ CROSS_COMPILE_ARM32="$GCC32"arm-linux-androideabi-"
 
 mkdir out
 make O=out $args $KERNEL_DEFCONFIG
-scripts/config --file out/.config -e LTO_CLANG -d THINLTO
+#scripts/config --file out/.config -e LTO_CLANG -d THINLTO
 cd out || exit
 make -j$(nproc --all) $args olddefconfig
 cd ../ || exit
