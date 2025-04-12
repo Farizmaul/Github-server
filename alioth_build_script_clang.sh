@@ -9,7 +9,7 @@ TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 BUILD_DTBO=0
-KERNEL_DEFCONFIG="vendor/kona-perf_defconfig vendor/alioth.config"
+KERNEL_DEFCONFIG="vendor/kona-perf_defconfig vendor/debugfs.config vendor/alioth.config"
 FINAL_KERNEL_ZIP=Stock-AOSP-Alioth-$TANGGAL.zip
 
 export ARCH=arm64
