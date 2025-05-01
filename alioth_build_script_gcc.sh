@@ -31,7 +31,7 @@ BUILD_START=$(date +"%s")
 # Post to CI channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
-Version : "$KERVER"-Hyrax-$COMMIT
+Version : "$KERVER"-perf-$COMMIT
 Compiler Used : $GCC_VER $LLD_VER" -d chat_id=${chat_id} -d parse_mode=HTML
 
 args="	ARCH=arm64 \
@@ -50,7 +50,6 @@ args="	ARCH=arm64 \
 
 mkdir out
 make -j$(nproc --all) O=out $args $KERNEL_DEFCONFIG
-# scripts/config --file out/.config -d CC_WERROR
 cd out || exit
 make -j$(nproc --all) O=out $args olddefconfig
 cd ../ || exit
