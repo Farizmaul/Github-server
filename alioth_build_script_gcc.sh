@@ -24,11 +24,7 @@ export DTBOPATH="$ANYKERNEL3_DIR/dtbo.img"
 # Check kernel version
 KERVER=$(make kernelversion)
 
-# Speed up build process
-MAKE="./makeparallel"
-BUILD_START=$(date +"%s")
-
-# Post to CI channel
+# Post to Telegram channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
 Version : "$KERVER"-perf-$COMMIT
@@ -48,6 +44,7 @@ args="	ARCH=arm64 \
 	CROSS_COMPILE=aarch64-elf- \
 	CROSS_COMPILE_COMPAT=arm-eabi-"
 
+BUILD_START=$(date +"%s")
 mkdir out
 make -j$(nproc --all) O=out $args $KERNEL_DEFCONFIG
 cd out || exit
@@ -57,6 +54,7 @@ make -j$(nproc --all) O=out $args V=$VERBOSE 2>&1 | tee error.log
 
 END=$(date +"%s")
 DIFF=$((END - BUILD_START))
+
 if [ -f $(pwd)/out/arch/arm64/boot/Image ]
         then
                 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="Build compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds" -d chat_id=${chat_id} -d parse_mode=HTML
