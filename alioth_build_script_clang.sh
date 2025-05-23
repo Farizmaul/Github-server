@@ -10,7 +10,7 @@ COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 BUILD_DTBO=0
 KERNEL_DEFCONFIG=vendor/alioth_user_defconfig
-FINAL_KERNEL_ZIP=NightQueen-Alioth-$TANGGAL.zip
+FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
 
 export ARCH=arm64
 export SUBARCH=arm64
@@ -22,26 +22,14 @@ export PATH="$CLANG:$PATH"
 export IMGPATH="$ANYKERNEL3_DIR/Image"
 export DTBPATH="$ANYKERNEL3_DIR/dtb"
 export DTBOPATH="$ANYKERNEL3_DIR/dtbo.img"
-export DISTRO=$(source /etc/os-release && echo "${NAME}")
 
 # Check kernel version
 KERVER=$(make kernelversion)
-if [ $BUILD_DTBO = 1 ]
-	then
-		git clone https://android.googlesource.com/platform/system/libufdt "$KERNEL_DIR"/scripts/ufdt/libufdt
-fi
 
-# Speed up build process
-MAKE="./makeparallel"
-BUILD_START=$(date +"%s")
-echo "***********************************************"
-echo "          BUILDING KERNEL          "
-echo "***********************************************"
-
-# Post to CI channel
+# Post to Telegram channel
 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="start building the kernel
 Branch : $(git rev-parse --abbrev-ref HEAD)
-Version : "$KERVER"-NightQueen-$COMMIT
+Version : "$KERVER"-Hyrax-$COMMIT
 Compiler Used : $KBUILD_COMPILER_STRING $LLD" -d chat_id=${chat_id} -d parse_mode=HTML
 
 args="ARCH=arm64 \
@@ -57,17 +45,17 @@ CLANG_TRIPLE=aarch64-linux-gnu- \
 CROSS_COMPILE="$GCC64"aarch64-linux-android- \
 CROSS_COMPILE_ARM32="$GCC32"arm-linux-androideabi-"
 
+BUILD_START=$(date +"%s")
 mkdir out
-make O=out $args $KERNEL_DEFCONFIG
-#scripts/config --file out/.config \
-#        -e POLLY_CLANG
+make -j$(nproc --all) O=out $args $KERNEL_DEFCONFIG
 cd out || exit
-make -j$(nproc --all) $args olddefconfig
+make -j$(nproc --all) O=out $args olddefconfig
 cd ../ || exit
 make -j$(nproc --all) O=out $args V=$VERBOSE 2>&1 | tee error.log
 
 END=$(date +"%s")
 DIFF=$((END - BUILD_START))
+
 if [ -f $(pwd)/out/arch/arm64/boot/Image ]
         then
                 curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d text="Build compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds" -d chat_id=${chat_id} -d parse_mode=HTML
