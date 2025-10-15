@@ -8,9 +8,14 @@ ANYKERNEL3_DIR=$MAINPATH/AnyKernel3/
 TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-BUILD_DTBO=0
-KERNEL_DEFCONFIG=vendor/alioth_user_defconfig
+BUILD_DTBO=1
+KERNEL_DEFCONFIG=alioth_defconfig
 FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
+
+if [ $BUILD_DTBO = 1 ]
+	then
+		git clone https://android.googlesource.com/platform/system/libufdt /scripts/ufdt/libufdt
+fi
 
 export ARCH=arm64
 export SUBARCH=arm64
