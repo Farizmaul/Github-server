@@ -7,8 +7,8 @@ ANYKERNEL3_DIR=$MAINPATH/AnyKernel3/
 TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-KERNEL_DEFCONFIG="vendor/kona-perf_defconfig vendor/alioth.config"
-FINAL_KERNEL_ZIP=Hyrax-Alioth-$TANGGAL.zip
+KERNEL_DEFCONFIG="vendor/kona-perf_defconfig vendor/xiaomi/sm8250-common.config vendor/xiaomi/alioth.config"
+FINAL_KERNEL_ZIP=Lineage-kernel-Alioth-$TANGGAL.zip
 
 export ARCH=arm64
 export SUBARCH=arm64
