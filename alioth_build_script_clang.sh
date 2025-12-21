@@ -9,8 +9,8 @@ TANGGAL=$(TZ=Asia/Jakarta date "+%Y%m%d-%H%M")
 COMMIT=$(git rev-parse --short HEAD)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 BUILD_DTBO=0
-KERNEL_DEFCONFIG=alioth_defconfig
-FINAL_KERNEL_ZIP=Hyper-R-Alioth-$TANGGAL.zip
+KERNEL_DEFCONFIG="vendor/kona-perf_defconfig vendor/xiaomi/sm8250-common.config vendor/xiaomi/alioth.config"
+FINAL_KERNEL_ZIP=Lineage-kernel-Alioth-$TANGGAL.zip
 
 if [ $BUILD_DTBO = 1 ]
 	then
