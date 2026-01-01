@@ -47,6 +47,7 @@ args="	ARCH=arm64 \
 BUILD_START=$(date +"%s")
 mkdir out
 make -j$(nproc --all) O=out $args $KERNEL_DEFCONFIG
+scripts/config --file out/.config -d CC_WERROR
 cd out || exit
 make -j$(nproc --all) O=out $args olddefconfig
 cd ../ || exit
